@@ -32,4 +32,9 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 1;
         _rigidbody.AddForce(transform.forward * _speed, ForceMode.Impulse);
     }
+
+    public void ActivateSlowMo()
+    {
+        Time.timeScale = _timeSlowScale;
+    }
 }

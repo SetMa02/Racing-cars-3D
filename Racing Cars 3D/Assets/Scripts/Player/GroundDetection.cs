@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Platforms;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GroundDetection : MonoBehaviour
 {
+    public event UnityAction RampJump;
     public bool IsGrounded { get; private set; }
 
     private void OnTriggerStay(Collider other)
@@ -14,7 +16,6 @@ public class GroundDetection : MonoBehaviour
         {
             IsGrounded = true;
         }
-        Debug.Log(other.gameObject.name);
     }
 
     private void OnTriggerExit(Collider other)
@@ -22,6 +23,10 @@ public class GroundDetection : MonoBehaviour
         if (other.gameObject.TryGetComponent<Platform>(out Platform platform))
         {
             IsGrounded = false;
+            if (other.gameObject.TryGetComponent<RampPlatform>(out RampPlatform rampPlatform))
+            {
+                RampJump?.Invoke();
+            }
         }
     }
 }
