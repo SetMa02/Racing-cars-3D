@@ -1,26 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Player;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovement), typeof(PlayerUI))]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerInput : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
-    private PlayerUI _UI;
     private bool _playerAim = false;
+    private GroundDetection _groundDetection;
     
     private void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>();
-        _UI = GetComponent<PlayerUI>();
-        
+        _groundDetection = GetComponentInChildren<GroundDetection>();
     }
 
     public void OnButtonPressed()
     {
-        if (_playerAim == false)
+        if (_playerAim == false && _groundDetection.IsGrounded == true)
         {
             StartCoroutine(ButtonPressed());
         }   
@@ -39,6 +37,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         _playerAim = false;
+        _playerMovement.Drop();
         yield return null;
     }
 }
