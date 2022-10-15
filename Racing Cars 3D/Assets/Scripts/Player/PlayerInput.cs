@@ -4,12 +4,28 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerMovement), typeof(PlayerUI))]
 public class PlayerInput : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
     private bool _playerAim = false;
     private GroundDetection _groundDetection;
+    private PlayerUI _playerUI;
+    
+    private void Awake()
+    {
+        _playerMovement = GetComponent<PlayerMovement>();
+        _groundDetection = GetComponentInChildren<GroundDetection>();
+        _playerUI = GetComponent<PlayerUI>();
+    }
+
+    private void OnValidate()
+    {
+        if (_groundDetection == null)
+        {
+           
+        }
+    }
 
     private void OnEnable()
     {
@@ -20,13 +36,7 @@ public class PlayerInput : MonoBehaviour
     {
         _groundDetection.RampJump -= GroundDetectionOnRampJump;
     }
-
-    private void Start()
-    {
-        _playerMovement = GetComponent<PlayerMovement>();
-        _groundDetection = GetComponentInChildren<GroundDetection>();
-    }
-
+    
     private void Update()
     {
         if (_groundDetection == false)
@@ -53,6 +63,8 @@ public class PlayerInput : MonoBehaviour
         _playerAim = true;
         Vector3 playerAimPoint = Camera.main.ScreenToViewportPoint(Input.mousePosition);
         _playerMovement.StartX = playerAimPoint.x;
+        _playerUI.ChangeFov(_playerUI.MaxFov);
+        
         while (Input.GetMouseButton(0))
         {
             Vector3 newPlayerAimPoint = Camera.main.ScreenToViewportPoint(Input.mousePosition);
@@ -61,6 +73,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         _playerAim = false;
+        _playerUI.ChangeFov(_playerUI.NormalFov);
         _playerMovement.Drop();
         yield return null;
     }
