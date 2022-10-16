@@ -14,7 +14,7 @@ public class PlayerCamera : MonoBehaviour
         _position = _targetTransform.InverseTransformPoint(transform.position);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector3 currentPosition = _targetTransform.TransformPoint(_position);
         transform.position = Vector3.Lerp(transform.position, currentPosition, _speed * Time.deltaTime);

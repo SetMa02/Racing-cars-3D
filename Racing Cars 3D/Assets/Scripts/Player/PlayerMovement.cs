@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private float _timeSlowScale;
+    private float _slowSpeed;
     private Rigidbody _rigidbody;
 
     private void Start()
@@ -19,17 +20,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void Aim(Vector3 _inputPosition)
     {
-        Time.timeScale = _timeSlowScale;
         float newRotationY = _inputPosition.x - StartX;
         newRotationY /= _rotateSpeed;
         var transformRotation = transform.eulerAngles;
         transformRotation.y -= newRotationY;
         transform.eulerAngles = transformRotation;
+        _rigidbody.velocity = new Vector3(0,0,0);
     }
 
     public void Drop()
     {
-        Time.timeScale = 1;
         _rigidbody.AddForce(transform.forward * _speed, ForceMode.Impulse);
     }
 

@@ -1,29 +1,37 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovement), typeof(PlayerUI))]
+[RequireComponent(typeof(PlayerMovement), typeof(PlayerUI), typeof(Animator))]
 public class PlayerInput : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
-    private bool _playerAim = false;
     private GroundDetection _groundDetection;
     private PlayerUI _playerUI;
+    private bool _isPressed = false;
+    private ParticleSystem[] _lights = new ParticleSystem[] {};
+    private Animator _animator;
+    private string _startLoad = "StartLoad";
+    private string _dropLoad = "DropLoad";
+    private Arrow _arrow;
     
+
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
         _groundDetection = GetComponentInChildren<GroundDetection>();
         _playerUI = GetComponent<PlayerUI>();
-    }
+        _lights = GetComponentsInChildren<ParticleSystem>();
+        _animator = GetComponent<Animator>();
+        _arrow = GetComponentInChildren<Arrow>();
+        _arrow.gameObject.SetActive(false);
 
-    private void OnValidate()
-    {
-        if (_groundDetection == null)
+        if (_lights.Length == 0)
         {
-           
+            throw new NullReferenceException();
         }
     }
 
@@ -37,20 +45,22 @@ public class PlayerInput : MonoBehaviour
         _groundDetection.RampJump -= GroundDetectionOnRampJump;
     }
     
-    private void Update()
+    private void FixedUpdate()
     {
-        if (_groundDetection == false)
+        if (Input.GetMouseButton(0) && _isPressed == false && _groundDetection.IsGrounded == true)
         {
-            _playerMovement.ActivateSlowMo();
+            StopCoroutine(ButtonPressed());
+            StartCoroutine(ButtonPressed());
+            _isPressed = true;
         }
     }
 
-    public void OnButtonPressed()
+    private void SwichLightStatus(bool status)
     {
-        if (_playerAim == false && _groundDetection.IsGrounded == true)
+        foreach (ParticleSystem light in _lights)
         {
-            StartCoroutine(ButtonPressed());
-        }   
+            light.gameObject.SetActive(status);
+        }
     }
     
     private void GroundDetectionOnRampJump()
@@ -60,10 +70,12 @@ public class PlayerInput : MonoBehaviour
 
     private IEnumerator ButtonPressed()
     {
-        _playerAim = true;
         Vector3 playerAimPoint = Camera.main.ScreenToViewportPoint(Input.mousePosition);
         _playerMovement.StartX = playerAimPoint.x;
         _playerUI.ChangeFov(_playerUI.MaxFov);
+        _animator.SetTrigger(_startLoad);
+        _arrow.gameObject.SetActive(true);
+        // SwichLightStatus( false);
         
         while (Input.GetMouseButton(0))
         {
@@ -71,8 +83,11 @@ public class PlayerInput : MonoBehaviour
             _playerMovement.Aim(newPlayerAimPoint);
             yield return null;
         }
-
-        _playerAim = false;
+        
+       // SwichLightStatus( true);
+       _arrow.gameObject.SetActive(false);
+       _animator.SetTrigger(_dropLoad);
+        _isPressed = false;
         _playerUI.ChangeFov(_playerUI.NormalFov);
         _playerMovement.Drop();
         yield return null;

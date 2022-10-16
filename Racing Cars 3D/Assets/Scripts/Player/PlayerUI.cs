@@ -22,7 +22,6 @@ public class PlayerUI : MonoBehaviour
         {
             throw new NullReferenceException();
         }
-    
     }
 
     public void ChangeFov(float targetFov)
