@@ -17,17 +17,13 @@ public class PlayerUI : MonoBehaviour
     private void Start()
     {
         _currentFov = Camera.main.fieldOfView;
-    }
-
-    /*
-    private void OnValidate()
-    {
+        
         if (_maxFov == 0 || _fovTime == 0)
         {
             throw new NullReferenceException();
         }
+    
     }
-    */
 
     public void ChangeFov(float targetFov)
     {
