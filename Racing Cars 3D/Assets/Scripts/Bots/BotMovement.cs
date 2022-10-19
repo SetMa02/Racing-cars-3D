@@ -11,7 +11,6 @@ namespace DefaultNamespace.Bots
     public class BotMovement : MonoBehaviour
     {
         [SerializeField] private float _maxSpeed = 5;
-        [SerializeField] private float _maxRotateSpray = 2;
         [SerializeField] private float _rotateTime = 2;
         private Rigidbody _rigidbody;
         private IEnumerator _rotateToPointCourutine;

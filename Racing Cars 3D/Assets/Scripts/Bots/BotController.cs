@@ -50,6 +50,13 @@ public class BotController : MonoBehaviour
     private void PointOnReached()
     {
         _currentPointIndex++;
-        _targetPoint = _points[_currentPointIndex];
+        if (_currentPointIndex >= _points.Length)
+        {
+            Debug.Log("bot finish");
+        }
+        else
+        {
+            _targetPoint = _points[_currentPointIndex];
+        }
     }
 }
