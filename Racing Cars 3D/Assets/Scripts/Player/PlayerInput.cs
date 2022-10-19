@@ -5,7 +5,7 @@ using DefaultNamespace;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovement), typeof(PlayerUI), typeof(Animator))]
+[RequireComponent(typeof(PlayerMovement), typeof(PlayerUI), typeof(CarAnimation))]
 public class PlayerInput : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
@@ -13,10 +13,9 @@ public class PlayerInput : MonoBehaviour
     private PlayerUI _playerUI;
     private bool _isPressed = false;
     private ParticleSystem[] _lights = new ParticleSystem[] {};
-    private Animator _animator;
-    private string _startLoad = "StartLoad";
-    private string _dropLoad = "DropLoad";
     private Arrow _arrow;
+    private CarAnimation _carAnimation;
+    private IEnumerator _buttonPressedCourutine;
     
 
     private void Awake()
@@ -25,8 +24,9 @@ public class PlayerInput : MonoBehaviour
         _groundDetection = GetComponentInChildren<GroundDetection>();
         _playerUI = GetComponent<PlayerUI>();
         _lights = GetComponentsInChildren<ParticleSystem>();
-        _animator = GetComponent<Animator>();
         _arrow = GetComponentInChildren<Arrow>();
+        _carAnimation = GetComponent<CarAnimation>();
+        _buttonPressedCourutine = ButtonPressed();
         _arrow.gameObject.SetActive(false);
 
         if (_lights.Length == 0)
@@ -73,7 +73,7 @@ public class PlayerInput : MonoBehaviour
         Vector3 playerAimPoint = Camera.main.ScreenToViewportPoint(Input.mousePosition);
         _playerMovement.StartX = playerAimPoint.x;
         _playerUI.ChangeFov(_playerUI.MaxFov);
-        _animator.SetTrigger(_startLoad);
+        _carAnimation.StartLoad();
         _arrow.gameObject.SetActive(true);
         // SwichLightStatus( false);
         
@@ -86,7 +86,7 @@ public class PlayerInput : MonoBehaviour
         
        // SwichLightStatus( true);
        _arrow.gameObject.SetActive(false);
-       _animator.SetTrigger(_dropLoad);
+       _carAnimation.Drop();
         _isPressed = false;
         _playerUI.ChangeFov(_playerUI.NormalFov);
         _playerMovement.Drop();
