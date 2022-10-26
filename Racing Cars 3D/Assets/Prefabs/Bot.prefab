@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 2000
-  _rotateTime: 2
+  _rotateTime: 5
 --- !u!114 &541782162352193805
 MonoBehaviour:
   m_ObjectHideFlags: 0

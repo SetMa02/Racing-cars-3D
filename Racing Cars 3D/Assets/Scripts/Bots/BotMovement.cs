@@ -62,12 +62,13 @@ namespace DefaultNamespace.Bots
             targetTransform.LookAt(targetPoint);
             Quaternion newRotation = new Quaternion(transform.rotation.x, targetTransform.rotation.y, transform.rotation.z,
                 transform.rotation.w);
+            targetTransform.rotation = newRotation;
 
             float rotateTime = _rotateTime;
             
             while (rotateTime >= 0)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, _rotateTime * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, targetTransform.position, _rotateTime * Time.deltaTime);
                 rotateTime -= Time.deltaTime;
                 yield return null;
             }

@@ -16,7 +16,7 @@ public class PlayerInput : MonoBehaviour
     private Arrow _arrow;
     private CarAnimation _carAnimation;
     private IEnumerator _buttonPressedCourutine;
-    
+
 
     private void Awake()
     {
@@ -38,11 +38,13 @@ public class PlayerInput : MonoBehaviour
     private void OnEnable()
     {
         _groundDetection.RampJump += GroundDetectionOnRampJump;
+        _groundDetection.Loose += GroundDetectionOnLoose;
     }
 
     private void OnDisable()
     {
         _groundDetection.RampJump -= GroundDetectionOnRampJump;
+        _groundDetection.Loose -= GroundDetectionOnLoose;
     }
     
     private void FixedUpdate()
@@ -66,6 +68,11 @@ public class PlayerInput : MonoBehaviour
     private void GroundDetectionOnRampJump()
     {
         StartCoroutine(OnRampJump());
+    }
+
+    private void GroundDetectionOnLoose()
+    {
+        _playerUI.StartDarkScreen();
     }
 
     private IEnumerator ButtonPressed()
