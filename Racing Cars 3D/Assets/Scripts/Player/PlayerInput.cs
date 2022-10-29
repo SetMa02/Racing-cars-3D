@@ -79,7 +79,7 @@ public class PlayerInput : MonoBehaviour
         StartCoroutine(OnRampJump());
     }
 
-    private void GroundDetectionOnLoose()
+    public void GroundDetectionOnLoose()
     {
         _playerUI.StartChangeScreenBrightness(_maxBrightnes);
     }

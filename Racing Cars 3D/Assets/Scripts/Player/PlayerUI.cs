@@ -14,6 +14,7 @@ public class PlayerUI : MonoBehaviour
     private float _currentFov;
     private IEnumerator _showAimEffectCourutine;
     private IEnumerator _showDarkScreenEffect;
+    private bool _isDark = false;
 
     public event UnityAction Loose;
 
@@ -44,10 +45,11 @@ public class PlayerUI : MonoBehaviour
 
     public void StartChangeScreenBrightness(float targetBrightness)
     {
-        if (_showDarkScreenEffect == null)
+        if (_isDark == false)
         {
             _showDarkScreenEffect = ChangeScreenBrightness(targetBrightness);
             StartCoroutine(_showDarkScreenEffect);
+            _isDark = true;
         }
     }
 
@@ -68,6 +70,7 @@ public class PlayerUI : MonoBehaviour
             yield return null;
         }
         Loose?.Invoke();
+        _isDark = false;
         yield return null;
     }
 

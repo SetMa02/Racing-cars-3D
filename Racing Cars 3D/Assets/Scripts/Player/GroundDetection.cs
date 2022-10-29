@@ -56,6 +56,7 @@ public class GroundDetection : MonoBehaviour
             if (count <= 0)
             {
                 Loose?.Invoke();
+                count = _secUnitilLoose;
             }
 
             yield return null;
