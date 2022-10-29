@@ -15,14 +15,15 @@ public class PlayerUI : MonoBehaviour
     private IEnumerator _showAimEffectCourutine;
     private IEnumerator _showDarkScreenEffect;
 
+    public event UnityAction Loose;
+
     public float MaxFov => _maxFov;
     public float NormalFov => _currentFov;
 
     private void Start()
     {
         _currentFov = Camera.main.fieldOfView;
-        _showDarkScreenEffect = DarkScreenEffect();
-        
+
         if (_maxFov == 0 || _fovTime == 0)
         {
             throw new NullReferenceException();
@@ -41,21 +42,33 @@ public class PlayerUI : MonoBehaviour
         StartCoroutine(_showAimEffectCourutine);
     }
 
-    public void StartDarkScreen()
+    public void StartChangeScreenBrightness(float targetBrightness)
     {
-        StopCoroutine(_showDarkScreenEffect);
-        StartCoroutine(_showDarkScreenEffect);
+        if (_showDarkScreenEffect == null)
+        {
+            _showDarkScreenEffect = ChangeScreenBrightness(targetBrightness);
+            StartCoroutine(_showDarkScreenEffect);
+        }
     }
 
-    private IEnumerator DarkScreenEffect()
+    public void ShowScreen()
     {
-        while (_darkImage.color.a < 1)
+        var darkImageColor = _darkImage.color;
+        darkImageColor.a = 0;
+        _darkImage.color = darkImageColor;
+    }
+
+    private IEnumerator ChangeScreenBrightness(float targetBrightness)
+    {
+        while (Math.Abs(_darkImage.color.a - targetBrightness) > 0.01)
         {
             var darkImageColor = _darkImage.color;
-            darkImageColor.a = Mathf.Lerp(darkImageColor.a, 1, _darkSpeed * Time.deltaTime);
+            darkImageColor.a = Mathf.Lerp(darkImageColor.a, targetBrightness, _darkSpeed * Time.deltaTime);
             _darkImage.color = darkImageColor;
             yield return null;
         }
+        Loose?.Invoke();
+        yield return null;
     }
 
     private IEnumerator ShowAimEffect(float targetFov)

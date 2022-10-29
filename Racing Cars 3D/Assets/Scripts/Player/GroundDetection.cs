@@ -52,8 +52,7 @@ public class GroundDetection : MonoBehaviour
         while (_secUnitilLoose > 0 &&  IsGrounded == false)
         {
             count -= Time.deltaTime;
-            Debug.Log(count);
-            
+
             if (count <= 0)
             {
                 Loose?.Invoke();

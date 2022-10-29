@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement), typeof(PlayerUI), typeof(CarAnimation))]
+[RequireComponent(typeof(LooseRespawn))]
 public class PlayerInput : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
@@ -16,6 +17,8 @@ public class PlayerInput : MonoBehaviour
     private Arrow _arrow;
     private CarAnimation _carAnimation;
     private IEnumerator _buttonPressedCourutine;
+    private LooseRespawn _looseRespawn;
+    private float _maxBrightnes = 1;
 
 
     private void Awake()
@@ -28,6 +31,7 @@ public class PlayerInput : MonoBehaviour
         _carAnimation = GetComponent<CarAnimation>();
         _buttonPressedCourutine = ButtonPressed();
         _arrow.gameObject.SetActive(false);
+        _looseRespawn = GetComponent<LooseRespawn>();
 
         if (_lights.Length == 0)
         {
@@ -39,12 +43,16 @@ public class PlayerInput : MonoBehaviour
     {
         _groundDetection.RampJump += GroundDetectionOnRampJump;
         _groundDetection.Loose += GroundDetectionOnLoose;
+        _looseRespawn.Respawned += LooseRespawnOnRespawned;
+        _playerUI.Loose+= PlayerUIOnLoose;
     }
 
     private void OnDisable()
     {
         _groundDetection.RampJump -= GroundDetectionOnRampJump;
         _groundDetection.Loose -= GroundDetectionOnLoose;
+        _looseRespawn.Respawned -= LooseRespawnOnRespawned;
+        _playerUI.Loose -= PlayerUIOnLoose;
     }
     
     private void FixedUpdate()
@@ -56,15 +64,16 @@ public class PlayerInput : MonoBehaviour
             _isPressed = true;
         }
     }
-
-    private void SwichLightStatus(bool status)
+    private void LooseRespawnOnRespawned()
     {
-        foreach (ParticleSystem light in _lights)
-        {
-            light.gameObject.SetActive(status);
-        }
+        _playerUI.ShowScreen();
     }
     
+    private void PlayerUIOnLoose()
+    {
+        _looseRespawn.Respawn();
+    }
+
     private void GroundDetectionOnRampJump()
     {
         StartCoroutine(OnRampJump());
@@ -72,7 +81,7 @@ public class PlayerInput : MonoBehaviour
 
     private void GroundDetectionOnLoose()
     {
-        _playerUI.StartDarkScreen();
+        _playerUI.StartChangeScreenBrightness(_maxBrightnes);
     }
 
     private IEnumerator ButtonPressed()
@@ -82,8 +91,7 @@ public class PlayerInput : MonoBehaviour
         _playerUI.ChangeFov(_playerUI.MaxFov);
         _carAnimation.StartLoad();
         _arrow.gameObject.SetActive(true);
-        // SwichLightStatus( false);
-        
+
         while (Input.GetMouseButton(0))
         {
             Vector3 newPlayerAimPoint = Camera.main.ScreenToViewportPoint(Input.mousePosition);
@@ -91,7 +99,6 @@ public class PlayerInput : MonoBehaviour
             yield return null;
         }
         
-       // SwichLightStatus( true);
        _arrow.gameObject.SetActive(false);
        _carAnimation.Drop();
         _isPressed = false;
@@ -104,7 +111,8 @@ public class PlayerInput : MonoBehaviour
     {
         _playerMovement.ActivateSlowMo();
         yield return new WaitUntil(() => _groundDetection.IsGrounded == true);
-        // метод возвращение в нормальное состояние
+        Time.timeScale = 0.5f;
         yield return null;
+        Time.timeScale = 1;
     }
 }
