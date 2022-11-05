@@ -17,6 +17,7 @@ namespace DefaultNamespace.Bots
         private BotPoint _targetPoint;
         private bool _isAim = false;
         private CarAnimation _carAnimation;
+        private GroundDetection _groundDetection;
 
         public event UnityAction ReadyToShoot;
 
@@ -31,7 +32,6 @@ namespace DefaultNamespace.Bots
         {
             if (_rigidbody.velocity == new Vector3(0,0,0) && _isAim == false)
             {
-                _isAim = true;
                 ReadyToShoot?.Invoke();
             }
         }
@@ -56,6 +56,7 @@ namespace DefaultNamespace.Bots
 
         private IEnumerator RotateToPoint()
         {
+            _isAim = true;
             Vector3 targetPoint = _targetPoint.transform.position;
             _carAnimation.StartLoad();
             Transform targetTransform = transform;

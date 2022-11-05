@@ -5,7 +5,7 @@ using DefaultNamespace;
 using DefaultNamespace.Bots;
 using UnityEngine;
 
-[RequireComponent(typeof(BotMovement), typeof(GroundDetection), typeof(LooseRespawn))]
+[RequireComponent(typeof(BotMovement), typeof(LooseRespawn))]
 public class BotController : MonoBehaviour
 {
     [SerializeField]private BotPoint[] _points;
@@ -53,7 +53,10 @@ public class BotController : MonoBehaviour
     
     private void BotMovementOnReadyToShoot()
     {
-        _botMovement.StartAim(_targetPoint);
+        if (_groundDetection.IsGrounded == true)
+        {
+            _botMovement.StartAim(_targetPoint);
+        }
     }
 
     private void PointOnReached()
