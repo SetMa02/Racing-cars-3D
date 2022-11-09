@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Obstacle))]
 public class Mine : MonoBehaviour
 {
    [SerializeField] private float _radius;
@@ -15,7 +16,7 @@ public class Mine : MonoBehaviour
       _explodeEffect = GetComponentInChildren<ParticleSystem>();
       _meshRenderer = GetComponent<MeshRenderer>();
    }
-
+   
    private void OnTriggerEnter(Collider other)
    {
       if (other.gameObject.TryGetComponent<LooseRespawn>(out LooseRespawn looseRespawn))
@@ -23,7 +24,7 @@ public class Mine : MonoBehaviour
          Explode();
       }
    }
-
+   
    private void Explode()
    {
       Collider[] overlappedColliders = Physics.OverlapSphere(transform.position, _radius);
@@ -32,7 +33,7 @@ public class Mine : MonoBehaviour
       {
          Rigidbody rigidbody = collider.attachedRigidbody;
 
-         if (rigidbody == true)
+         if (rigidbody == true && !collider.TryGetComponent(out Obstacle obstacle))
          {
             rigidbody.AddExplosionForce(_force, transform.position, _radius);
          }
@@ -48,7 +49,7 @@ public class Mine : MonoBehaviour
          _explodeEffect.Play();
       }
    }
-
+   
    private IEnumerator HideByParticleEnd()
    {
       yield return new WaitForSeconds(_explodeEffect.startLifetime);
