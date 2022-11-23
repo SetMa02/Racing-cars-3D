@@ -20,6 +20,7 @@ public class PlayerInput : MonoBehaviour
     private LooseRespawn _looseRespawn;
     private float _maxBrightnes = 1;
 
+    public bool IsPressed => _isPressed;
 
     private void Awake()
     {

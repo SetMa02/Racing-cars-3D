@@ -5103,7 +5103,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 584121057056cac46b3d8cac4ebe2d87, type: 2}
   - {fileID: 2100000, guid: 9dfab4aa785fbe846b31e05b025c6cda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9963,7 +9963,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 584121057056cac46b3d8cac4ebe2d87, type: 2}
   - {fileID: 2100000, guid: 9dfab4aa785fbe846b31e05b025c6cda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -10286,6 +10286,7 @@ GameObject:
   - component: {fileID: 7284676581176474742}
   - component: {fileID: 2316224405251306691}
   - component: {fileID: 4207462602984844022}
+  - component: {fileID: 6608896642547554873}
   m_Layer: 0
   m_Name: PlayerCar
   m_TagString: Untagged
@@ -10369,6 +10370,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxFov: 100
   _fovTime: 2
+  _darkImage: {fileID: 0}
+  _darkSpeed: 1
 --- !u!114 &7284676581176474742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10417,3 +10420,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabb3394c89843a08ec4ed1a4dcc6b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6608896642547554873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7627187987939532754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9623d6748fcd324684a70b28fa51536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _checkPoint: {fileID: 0}
+  _stepUp: 2
