@@ -16,9 +16,9 @@ public class PlayerInput : MonoBehaviour
     private ParticleSystem[] _lights = new ParticleSystem[] {};
     private Arrow _arrow;
     private CarAnimation _carAnimation;
-    private IEnumerator _buttonPressedCourutine;
     private LooseRespawn _looseRespawn;
     private float _maxBrightnes = 1;
+    private WaitForSeconds _carRespawnCooldown;
 
     public bool IsPressed => _isPressed;
 
@@ -30,9 +30,9 @@ public class PlayerInput : MonoBehaviour
         _lights = GetComponentsInChildren<ParticleSystem>();
         _arrow = GetComponentInChildren<Arrow>();
         _carAnimation = GetComponent<CarAnimation>();
-        _buttonPressedCourutine = ButtonPressed();
         _arrow.gameObject.SetActive(false);
         _looseRespawn = GetComponent<LooseRespawn>();
+        _carRespawnCooldown = new WaitForSeconds(1);
 
         if (_lights.Length == 0)
         {
@@ -61,13 +61,16 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetMouseButton(0) && _isPressed == false && _groundDetection.IsGrounded == true)
         {
             StopCoroutine(ButtonPressed());
+            
             StartCoroutine(ButtonPressed());
+            
             _isPressed = true;
         }
     }
     private void LooseRespawnOnRespawned()
     {
-        _playerUI.ShowScreen();
+        _playerMovement.StopCar();
+        StartCoroutine(RespawnCarCooldown());
     }
     
     private void PlayerUIOnLoose()
@@ -106,6 +109,13 @@ public class PlayerInput : MonoBehaviour
         _playerUI.ChangeFov(_playerUI.NormalFov);
         _playerMovement.Drop();
         yield return null;
+    }
+
+    private IEnumerator RespawnCarCooldown()
+    {
+        yield return _carRespawnCooldown;
+        
+        _playerUI.ShowScreen();
     }
 
     private IEnumerator OnRampJump()

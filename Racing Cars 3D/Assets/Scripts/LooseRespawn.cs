@@ -14,7 +14,7 @@ public class LooseRespawn : MonoBehaviour
         Vector3 newPosition = new Vector3(_checkPoint.transform.position.x, _checkPoint.transform.position.y + _stepUp,
             _checkPoint.transform.position.z);
         gameObject.transform.rotation = _checkPoint.transform.rotation;
-        transform.position = newPosition; 
+        transform.position = newPosition;
         Respawned?.Invoke();
     }
 }

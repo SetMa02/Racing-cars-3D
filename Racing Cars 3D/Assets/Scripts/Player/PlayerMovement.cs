@@ -18,6 +18,11 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
 
+    public void StopCar()
+    {
+        _rigidbody.velocity = Vector3.zero;
+    }
+    
     public void Aim(Vector3 _inputPosition)
     {
         float newRotationY = _inputPosition.x - StartX;

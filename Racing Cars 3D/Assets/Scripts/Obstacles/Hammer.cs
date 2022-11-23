@@ -43,9 +43,9 @@ public class Hammer : MonoBehaviour
         _crackEffect.Play();
         _boomEffect.Play();
 
-        if (collision.gameObject.TryGetComponent<LooseRespawn>(out LooseRespawn looseRespawn))
+        if (collision.gameObject.TryGetComponent<PlayerUI>(out PlayerUI player))
         {
-            looseRespawn.Respawn();
+            player.StartChangeScreenBrightness(1f);
         }
     }
 }
