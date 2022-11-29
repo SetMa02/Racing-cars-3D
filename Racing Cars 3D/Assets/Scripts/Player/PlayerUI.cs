@@ -11,10 +11,13 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private float _fovTime;
     [SerializeField] private Image _darkImage;
     [SerializeField] private float _darkSpeed = 1;
+    [SerializeField] private Image _actionEffectImage;
     private float _currentFov;
     private IEnumerator _showAimEffectCourutine;
     private IEnumerator _showDarkScreenEffect;
     private bool _isDark = false;
+
+    public float DarkSpeed => _darkSpeed;
 
     public event UnityAction Loose;
 
@@ -24,11 +27,6 @@ public class PlayerUI : MonoBehaviour
     private void Start()
     {
         _currentFov = Camera.main.fieldOfView;
-
-        if (_maxFov == 0 || _fovTime == 0)
-        {
-            throw new NullReferenceException();
-        }
     }
 
     public void ChangeFov(float targetFov)
@@ -58,6 +56,20 @@ public class PlayerUI : MonoBehaviour
         var darkImageColor = _darkImage.color;
         darkImageColor.a = 0;
         _darkImage.color = darkImageColor;
+    }
+
+    public void ShowActionEffect()
+    {
+        var color = _actionEffectImage.color;
+        color.a = 0;
+        _actionEffectImage.color = color;
+    }
+
+    public void HideActionEffect()
+    {
+        var color = _actionEffectImage.color;
+        color.a = 1;
+        _actionEffectImage.color = color;
     }
 
     private IEnumerator ChangeScreenBrightness(float targetBrightness)

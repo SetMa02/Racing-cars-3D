@@ -122,8 +122,6 @@ public class PlayerInput : MonoBehaviour
     {
         _playerMovement.ActivateSlowMo();
         yield return new WaitUntil(() => _groundDetection.IsGrounded == true);
-        Time.timeScale = 0.5f;
-        yield return null;
         Time.timeScale = 1;
     }
 }
