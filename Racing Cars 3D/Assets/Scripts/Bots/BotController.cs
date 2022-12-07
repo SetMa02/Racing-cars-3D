@@ -53,7 +53,7 @@ public class BotController : MonoBehaviour
     
     private void BotMovementOnReadyToShoot()
     {
-        if (_groundDetection.IsGrounded == true)
+        if (_groundDetection.IsGrounded == true && _botMovement.IsAim == false)
         {
             _botMovement.StartAim(_targetPoint);
         }

@@ -19,12 +19,13 @@ namespace DefaultNamespace.Bots
         private CarAnimation _carAnimation;
         private GroundDetection _groundDetection;
 
+        
+        public bool IsAim => _isAim;
         public event UnityAction ReadyToShoot;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _rotateToPointCourutine = RotateToPoint();
             _carAnimation = GetComponent<CarAnimation>();
         }
 
@@ -34,12 +35,21 @@ namespace DefaultNamespace.Bots
             {
                 ReadyToShoot?.Invoke();
             }
+
+            if (_isAim == true)
+            {
+                Vector3 targetPoint = _targetPoint.transform.position;
+                Quaternion newRotation = transform.rotation;
+                newRotation.SetLookRotation(targetPoint);
+                transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, _rotateTime * Time.deltaTime);
+            }
         }
 
         public void StartAim(BotPoint targetPoint)
         {
             StopCoroutine(RotateToPoint());
             _targetPoint = targetPoint;
+            _isAim = true;
             StartCoroutine(RotateToPoint());
         }
 
@@ -54,25 +64,11 @@ namespace DefaultNamespace.Bots
             return Random.Range(0, maxValue);
         }
 
+        
         private IEnumerator RotateToPoint()
         {
-            _isAim = true;
-            Vector3 targetPoint = _targetPoint.transform.position;
             _carAnimation.StartLoad();
-            Transform targetTransform = transform;
-            targetTransform.LookAt(targetPoint);
-            Quaternion newRotation = new Quaternion(transform.rotation.x, targetTransform.rotation.y, transform.rotation.z,
-                transform.rotation.w);
-            targetTransform.rotation = newRotation;
-
-            float rotateTime = _rotateTime;
-            
-            while (rotateTime >= 0)
-            {
-                transform.position = Vector3.Lerp(transform.position, targetTransform.position, _rotateTime * Time.deltaTime);
-                rotateTime -= Time.deltaTime;
-                yield return null;
-            }
+            yield return new WaitForSeconds(_rotateTime);
             _carAnimation.Drop();
             Drop();
             yield return null;
