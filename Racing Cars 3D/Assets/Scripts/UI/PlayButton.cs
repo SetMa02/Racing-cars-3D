@@ -7,14 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayButton : MonoBehaviour
 {
+    private int _targetScene = 1;
     private PlayerUI _playerUI;
     private float _minBrightness = 1;
     private WaitForSeconds _holdTime;
-    private int _targetScene = 1;
 
     private void Awake()
     {
-        _playerUI = Camera.main.GetComponent<PlayerUI>();
         _playerUI = Camera.main.GetComponent<PlayerUI>();
         _holdTime = new WaitForSeconds(_playerUI.DarkSpeed);
     }

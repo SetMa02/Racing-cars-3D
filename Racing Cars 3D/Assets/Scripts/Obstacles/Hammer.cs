@@ -47,5 +47,10 @@ public class Hammer : MonoBehaviour
         {
             player.StartChangeScreenBrightness(1f);
         }
+        
+        else if (collision.gameObject.TryGetComponent<LooseRespawn>(out LooseRespawn looseRespawn))
+        {
+            looseRespawn.Respawn();
+        }
     }
 }
