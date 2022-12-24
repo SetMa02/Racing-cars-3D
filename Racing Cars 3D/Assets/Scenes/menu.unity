@@ -884,7 +884,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cbd3aa4cd16c1e46ad9680fd961f9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetScene: 1
 --- !u!1 &910780761
 GameObject:
   m_ObjectHideFlags: 0
@@ -1700,6 +1699,7 @@ GameObject:
   - component: {fileID: 1764150443}
   - component: {fileID: 1764150442}
   - component: {fileID: 1764150445}
+  - component: {fileID: 1764150446}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1790,6 +1790,18 @@ MonoBehaviour:
   _darkImage: {fileID: 171563747}
   _darkSpeed: 1
   _actionEffectImage: {fileID: 0}
+--- !u!114 &1764150446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764150441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96816b4f3c9247e45b53a8dfb4ead27c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1797279214
 GameObject:
   m_ObjectHideFlags: 0

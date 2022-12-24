@@ -19,7 +19,7 @@ namespace DefaultNamespace.Player
         public void StartLoadingLevel()
         {
             Time.timeScale = 1;
-            _playerUI.StartChangeScreenBrightness(1);
+            _playerUI.StartChangeScreenBrightness(_minBrightness);
             StartCoroutine(LoadHold());
         }
 

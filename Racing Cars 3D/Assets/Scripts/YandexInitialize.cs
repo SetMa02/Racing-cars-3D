@@ -9,16 +9,16 @@ public class YandexInitialize : MonoBehaviour
 {
     private void Awake()
     {
-        YandexGamesSdk.CallbackLogging = true;
+        YandexGamesSdk.CallbackLogging = true;  
     }
 
     private IEnumerator Start()
     {
-        #if !UNITY_WEBGL || UNITY_EDITOR
-        yield break;
-        #endif
-        yield return YandexGamesSdk.Initialize();
-        
+#if UNITY_WEBGL && !UNITY_EDITOR
+    yield return YandexGamesSdk.Initialize();
+#endif
+        yield return null;
+
     }
 }
 
