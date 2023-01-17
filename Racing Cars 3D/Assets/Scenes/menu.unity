@@ -895,6 +895,7 @@ GameObject:
   - component: {fileID: 910780762}
   - component: {fileID: 910780764}
   - component: {fileID: 910780763}
+  - component: {fileID: 910780765}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -942,9 +943,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Play
-
-'
+  m_text: Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a2a44dbc7aa480243bce3677326aaa66, type: 2}
   m_sharedMaterial: {fileID: 730746786773947653, guid: a2a44dbc7aa480243bce3677326aaa66, type: 2}
@@ -1021,6 +1020,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910780761}
   m_CullTransparentMesh: 1
+--- !u!114 &910780765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910780761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47329d23a0753cc4faa89ee749751c36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageVariants:
+  - Play
+  - "\u0418\u0433\u0440\u0430\u0442\u044C "
+  - Oyna
 --- !u!1 &926938048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,6 +1969,7 @@ GameObject:
   - component: {fileID: 2070750615}
   - component: {fileID: 2070750617}
   - component: {fileID: 2070750616}
+  - component: {fileID: 2070750618}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2028,7 +2044,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 78.55
+  m_fontSize: 84.1
   m_fontSizeBase: 39.47
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2078,6 +2094,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070750614}
   m_CullTransparentMesh: 1
+--- !u!114 &2070750618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070750614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47329d23a0753cc4faa89ee749751c36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageVariants:
+  - Settings
+  - "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
+  - Ayarlar
 --- !u!1 &2075786807
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,6 +2288,14 @@ PrefabInstance:
     - target: {fileID: 6330363429679258964, guid: 369c6ebb9db8a1b4aa1237997c1935ef, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330363429929771962, guid: 369c6ebb9db8a1b4aa1237997c1935ef, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330363430098002701, guid: 369c6ebb9db8a1b4aa1237997c1935ef, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 369c6ebb9db8a1b4aa1237997c1935ef, type: 3}
