@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Agava.YandexGames;
 using UnityEngine;
+using DeviceType = Agava.YandexGames.DeviceType;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
@@ -12,10 +14,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _timeSlowScale;
     private float _slowSpeed;
     private Rigidbody _rigidbody;
+    private float _desktopRotateSpeed = 0.2f;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+
+        if (Device.Type == DeviceType.Desktop)
+        {
+            _rotateSpeed = _desktopRotateSpeed;
+        }
     }
 
     public void StopCar()

@@ -17,7 +17,7 @@ namespace DefaultNamespace.Player
             _button.onClick.AddListener(CloseCanvasGroup);
         }
 
-        private void CloseCanvasGroup()
+        public void CloseCanvasGroup()
         {
             _targetCanvasGroup.alpha = 0;
             _targetCanvasGroup.interactable = false;

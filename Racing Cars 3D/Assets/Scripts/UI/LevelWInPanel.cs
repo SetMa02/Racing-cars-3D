@@ -27,7 +27,7 @@ namespace DefaultNamespace.Player
             _finish.Victory -= FinishOnVictory;
         }
 
-        private void FinishOnVictory()
+        public void FinishOnVictory()
         {
             _winPanel.alpha = 1;
             _winPanel.interactable = true;
