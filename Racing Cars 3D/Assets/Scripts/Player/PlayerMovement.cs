@@ -20,10 +20,12 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
 
+#if !UNITY_EDITOR
         if (Device.Type == DeviceType.Desktop)
         {
             _rotateSpeed = _desktopRotateSpeed;
         }
+#endif
     }
 
     public void StopCar()

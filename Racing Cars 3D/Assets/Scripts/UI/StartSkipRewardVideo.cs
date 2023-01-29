@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class StartSkipRewardVideo : MonoBehaviour
 {
+   [SerializeField] private ChangeScene _nextLevel;
    private LevelWInPanel _levelWIn;
-   private ButtonCloseCanvasGroupe _buttonClose;
-
+   
    private void Start()
    {
       _levelWIn = FindObjectOfType<LevelWInPanel>();
-      _buttonClose = GetComponentInParent<ButtonCloseCanvasGroupe>();
+   
    }
 
    public void ShowVideo()
@@ -24,8 +24,7 @@ public class StartSkipRewardVideo : MonoBehaviour
 
    private void ShowAd()
    {
-      _buttonClose.CloseCanvasGroup();
-      _levelWIn.FinishOnVictory();
+      _nextLevel.StartLoadingLevel();
    }
 }
 
