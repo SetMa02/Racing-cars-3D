@@ -7,18 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class PlayButton : MonoBehaviour
 {
-    private int _targetScene = 1;
     private PlayerUI _playerUI;
     private float _minBrightness = 1;
     private WaitForSeconds _holdTime;
+    private CurrentLevel _currentLevel;
 
     private void Awake()
     {
-        _playerUI = Camera.main.GetComponent<PlayerUI>();
+        _playerUI = FindObjectOfType<PlayerUI>();
         _holdTime = new WaitForSeconds(_playerUI.DarkSpeed);
+        _currentLevel = FindObjectOfType<CurrentLevel>();
+        if (_currentLevel == null)
+        {
+            throw new NullReferenceException("Нужен скрипт CurrentLevel");
+        }
     }
 
-    public void StartLoadingLevel()
+    public void StartLoadingNextLevel()
     {
         _playerUI.StartChangeScreenBrightness(1);
         StartCoroutine(LoadHold());
@@ -27,6 +32,8 @@ public class PlayButton : MonoBehaviour
     private IEnumerator LoadHold()
     {
         yield return _holdTime;
-        SceneManager.LoadScene(_targetScene);
+        int nextLevel = _currentLevel.Level;
+        nextLevel++;
+        SceneManager.LoadScene(nextLevel);
     }
 }

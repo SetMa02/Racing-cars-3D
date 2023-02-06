@@ -9,12 +9,19 @@ namespace DefaultNamespace.Player
 {
     public class LevelWInPanel : MonoBehaviour
     {
-        [SerializeField]private Finish _finish;
+        private Finish _finish;
         private CanvasGroup _winPanel;
+        private CurrentLevel _currentLevel;
 
-        private void Start()
+        private void Awake()
         {
+            _currentLevel = FindObjectOfType<CurrentLevel>();
             _winPanel = GetComponent<CanvasGroup>();
+            _finish = FindObjectOfType<Finish>();
+            if (_finish == null)
+            {
+                throw new NullReferenceException("Необходимо расположить финишную арку");
+            }
         }
 
         private void OnEnable()
@@ -27,8 +34,11 @@ namespace DefaultNamespace.Player
             _finish.Victory -= FinishOnVictory;
         }
 
-        public void FinishOnVictory()
+        private void FinishOnVictory()
         {
+            _currentLevel.Level++;
+            _currentLevel.SaveLevel(_currentLevel.Level);
+            _currentLevel.CheckCurrentLevel();
             _winPanel.alpha = 1;
             _winPanel.interactable = true;
             _winPanel.blocksRaycasts = true;
