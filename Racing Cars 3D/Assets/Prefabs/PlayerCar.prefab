@@ -10368,10 +10368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1645dc8104e3fd146be7bb5454c8c590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxFov: 60
+  _maxFov: 50
   _fovTime: 1
   _darkImage: {fileID: 0}
-  _darkSpeed: 2
+  _darkSpeed: 3
   _actionEffectImage: {fileID: 0}
 --- !u!114 &7284676581176474742
 MonoBehaviour:
@@ -10387,7 +10387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartX: 0
   _speed: 1500
-  _rotateSpeed: 1
+  _rotateSpeed: 0.1
   _timeSlowScale: 1
 --- !u!95 &2316224405251306691
 Animator:

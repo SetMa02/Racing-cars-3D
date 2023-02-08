@@ -29,11 +29,6 @@ public class CurrentLevel : MonoBehaviour
         {
             Level = _tutorialLevel;
             Level++;
-            Debug.Log(SceneManager.sceneCountInBuildSettings+" "+ Level);
-        }
-        else
-        {
-            Debug.Log(SceneManager.sceneCountInBuildSettings+" "+ Level);
         }
     }
 
