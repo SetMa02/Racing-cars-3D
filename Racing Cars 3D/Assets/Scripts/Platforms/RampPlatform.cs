@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace Platforms
 {
-    public class RampPlatform : MonoBehaviour
+    public class RampPlatform : Platform
     {
-        
     }
 }
