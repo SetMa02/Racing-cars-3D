@@ -1,18 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collision.gameObject.TryGetComponent<PlayerUI>(out PlayerUI player))
+        {
+            player.StartChangeScreenBrightness(1f);
+        }
+        else if (collision.gameObject.TryGetComponent<LooseRespawn>(out LooseRespawn looseRespawn))
+        {
+            looseRespawn.Respawn();
+        }
     }
 }

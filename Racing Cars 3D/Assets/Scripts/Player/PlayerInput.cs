@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
     private LooseRespawn _looseRespawn;
     private float _maxBrightnes = 1;
     private WaitForSeconds _carRespawnCooldown;
+    private float _secSlowmo = 1.5f;
 
     public bool IsPressed => _isPressed;
 
@@ -121,7 +122,13 @@ public class PlayerInput : MonoBehaviour
     private IEnumerator OnRampJump()
     {
         _playerMovement.ActivateSlowMo();
-        yield return new WaitUntil(() => _groundDetection.IsGrounded == true);
+        float secSlowMo = _secSlowmo;
+        while (_groundDetection.IsGrounded == false || 0 >= secSlowMo)
+        {
+            secSlowMo -= Time.deltaTime;
+            
+            yield return null;
+        }
         Time.timeScale = 1;
     }
 }

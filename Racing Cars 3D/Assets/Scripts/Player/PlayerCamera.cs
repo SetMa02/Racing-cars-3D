@@ -5,29 +5,26 @@ using UnityEngine;
  
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField] private Transform _targetTransform;
     [SerializeField] private float _speed;
     [SerializeField] private PlayerInput _player;
     private Vector3 _position;
+    private CameraTarget _targetTransform;
 
     private void Start()
     {
-        _position = _targetTransform.InverseTransformPoint(transform.position);
-
-        if (_player == null)
-        {
-            throw new NullReferenceException();
-        }
+        _player = FindObjectOfType<PlayerInput>();
+        _targetTransform = FindObjectOfType<CameraTarget>();
+        _position = _targetTransform.transform.InverseTransformPoint(transform.position);
     }
 
     private void FixedUpdate()
     {
         if (_player.IsPressed == false)
         {
-            Vector3 currentPosition = _targetTransform.TransformPoint(_position);
+            Vector3 currentPosition = _targetTransform.transform.TransformPoint(_position);
             transform.position = Vector3.Lerp(transform.position, currentPosition, _speed * Time.deltaTime);
             Transform newRotation = transform;
-            newRotation.LookAt(_targetTransform);
+            newRotation.LookAt(_targetTransform.transform);
             transform.rotation = Quaternion.Lerp(transform.rotation, newRotation.rotation, _speed * Time.deltaTime);
         }
        

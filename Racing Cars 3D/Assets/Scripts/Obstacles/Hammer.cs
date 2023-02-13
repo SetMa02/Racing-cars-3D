@@ -5,8 +5,8 @@ using UnityEngine;
 using DG.Tweening;
 using Platforms;
 
-[RequireComponent(typeof(Obstacle), typeof(Animator))]
-public class Hammer : MonoBehaviour
+[RequireComponent(typeof(Animator))]
+public class Hammer : Obstacle
 {
     [SerializeField] private float _attackDuration = 2;
     [SerializeField] private float _recoveryDuration = 2;
@@ -23,8 +23,6 @@ public class Hammer : MonoBehaviour
         {
             throw new Exception();
         }
-        
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -42,15 +40,5 @@ public class Hammer : MonoBehaviour
         
         _crackEffect.Play();
         _boomEffect.Play();
-
-        if (collision.gameObject.TryGetComponent<PlayerUI>(out PlayerUI player))
-        {
-            player.StartChangeScreenBrightness(1f);
-        }
-        
-        else if (collision.gameObject.TryGetComponent<LooseRespawn>(out LooseRespawn looseRespawn))
-        {
-            looseRespawn.Respawn();
-        }
     }
 }

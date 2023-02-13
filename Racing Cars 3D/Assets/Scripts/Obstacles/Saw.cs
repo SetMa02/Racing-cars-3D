@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Obstacle))]
-public class Saw : MonoBehaviour
+public class Saw : Obstacle
 {
     [SerializeField] private float _power;
     private ParticleSystem _sparks;
@@ -31,11 +30,6 @@ public class Saw : MonoBehaviour
             }
 
             _sparks.Play();
-
-            if (collision.gameObject.TryGetComponent<PlayerUI>(out PlayerUI playerUI))
-            {
-                playerUI.StartChangeScreenBrightness(1f);
-            }
         }
     }
 }
