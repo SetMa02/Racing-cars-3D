@@ -27,6 +27,5 @@ public class PlayerCamera : MonoBehaviour
             newRotation.LookAt(_targetTransform.transform);
             transform.rotation = Quaternion.Lerp(transform.rotation, newRotation.rotation, _speed * Time.deltaTime);
         }
-       
     }
 }

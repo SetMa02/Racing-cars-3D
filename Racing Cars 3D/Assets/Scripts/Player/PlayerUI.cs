@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace.Player;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,9 +10,9 @@ public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private float _maxFov;
     [SerializeField] private float _fovTime;
-    [SerializeField] private Image _darkImage;
     [SerializeField] private float _darkSpeed = 1;
     [SerializeField] private Image _actionEffectImage;
+    private DarkImage _darkImage;
     private float _currentFov;
     private IEnumerator _showAimEffectCourutine;
     private IEnumerator _showDarkScreenEffect;
@@ -27,6 +28,7 @@ public class PlayerUI : MonoBehaviour
     private void Start()
     {
         _currentFov = Camera.main.fieldOfView;
+        _darkImage = FindObjectOfType<DarkImage>();
     }
 
     public void ChangeFov(float targetFov)
@@ -53,9 +55,9 @@ public class PlayerUI : MonoBehaviour
 
     public void ShowScreen()
     {
-        var darkImageColor = _darkImage.color;
+        var darkImageColor = _darkImage.DarkScreen.color;
         darkImageColor.a = 0;
-        _darkImage.color = darkImageColor;
+        _darkImage.DarkScreen.color = darkImageColor;
     }
 
     public void ShowActionEffect()
@@ -74,11 +76,11 @@ public class PlayerUI : MonoBehaviour
 
     private IEnumerator ChangeScreenBrightness(float targetBrightness)
     {
-        while (Math.Abs(_darkImage.color.a - targetBrightness) > 0.01)
+        while (Math.Abs(_darkImage.DarkScreen.color.a - targetBrightness) > 0.01)
         {
-            var darkImageColor = _darkImage.color;
+            var darkImageColor = _darkImage.DarkScreen.color;
             darkImageColor.a = Mathf.Lerp(darkImageColor.a, targetBrightness, _darkSpeed * Time.deltaTime);
-            _darkImage.color = darkImageColor;
+            _darkImage.DarkScreen.color = darkImageColor;
             yield return null;
         }
         Loose?.Invoke();

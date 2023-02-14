@@ -35,6 +35,7 @@ public class GroundDetection : MonoBehaviour
             IsGrounded = false;
             if (other.gameObject.TryGetComponent<RampPlatform>(out RampPlatform rampPlatform))
             {
+             
                 RampJump?.Invoke();
             }
 
