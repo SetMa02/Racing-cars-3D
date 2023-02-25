@@ -7,6 +7,7 @@ public class CameraTarget : MonoBehaviour
 {
     [SerializeField] private float _followSpeed = 0.5f;
     [SerializeField] private float _distanceToPlayer;
+    [SerializeField] private GameObject _moveTarget;
     private PlayerInput _playerInput;
     private LooseRespawn _respawn;
     private Vector3 _targetPosition;
@@ -50,18 +51,8 @@ public class CameraTarget : MonoBehaviour
 
     private void FollowPlayer()
     {
-        if (Vector3.Distance(_playerInput.gameObject.transform.position, transform.position) > _distanceToPlayer)
-        {
-            _targetPosition = _playerInput.transform.position + _positionDifference;
-            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, 
-                _followSpeed * Time.fixedDeltaTime);
-        }
-        else
-        {
-            /*
-            _targetPosition = transform.position;
-            Debug.Log("a?");
-            */
-        }
+        _targetPosition = _playerInput.transform.position + _positionDifference;
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, 
+            _followSpeed * Time.fixedDeltaTime);
     }
 }
