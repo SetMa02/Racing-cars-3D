@@ -18,7 +18,6 @@ public class YandexInitialize : MonoBehaviour
     yield return YandexGamesSdk.Initialize();
 #endif
         yield return null;
-
     }
 }
 
