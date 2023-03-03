@@ -2604,17 +2604,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 709269870130582492, guid: c3aebc1d44f5b6045ab4a4a42c328959, type: 3}
   m_PrefabInstance: {fileID: 622135096}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1660196213 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2789765635401936104, guid: 813d29e84a32f6846b7d7a5ceb436174, type: 3}
-  m_PrefabInstance: {fileID: 2789765637039061405}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1547c50c3d274c11b2ac0fe87c654a2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1660196218 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5668078724256180111, guid: 813d29e84a32f6846b7d7a5ceb436174, type: 3}
@@ -3446,14 +3435,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 336908736, guid: a702534b2427e4a47adf7bb34437e043, type: 3}
-      propertyPath: _finish
-      value: 
-      objectReference: {fileID: 1660196213}
-    - target: {fileID: 782628376, guid: a702534b2427e4a47adf7bb34437e043, type: 3}
-      propertyPath: _nextLevel
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2709071852571181115, guid: a702534b2427e4a47adf7bb34437e043, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -3545,14 +3526,6 @@ PrefabInstance:
     - target: {fileID: 2709071852571181119, guid: a702534b2427e4a47adf7bb34437e043, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2709071852721020555, guid: a702534b2427e4a47adf7bb34437e043, type: 3}
-      propertyPath: _playerUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4911301421100841744, guid: a702534b2427e4a47adf7bb34437e043, type: 3}
-      propertyPath: _playerUI
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8232995186749933002, guid: a702534b2427e4a47adf7bb34437e043, type: 3}
       propertyPath: m_AnchorMax.y

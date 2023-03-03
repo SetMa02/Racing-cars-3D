@@ -9,7 +9,9 @@ public class StartSignal : MonoBehaviour
 {
     [SerializeField] private List<Image> _lights = new List<Image>();
     [SerializeField] private float _secBeforeStart;
+    [SerializeField] private float _holdTime;
     private WaitForSeconds _waitDelay;
+    private WaitForSeconds _hold;
 
     public event UnityAction RaceStart;
     private void Start()
@@ -20,6 +22,7 @@ public class StartSignal : MonoBehaviour
         }
         
         _waitDelay = new WaitForSeconds(_secBeforeStart / _lights.Count);
+        _hold = new WaitForSeconds(_holdTime);
     }
 
     public void StartCountDown()
@@ -33,11 +36,11 @@ public class StartSignal : MonoBehaviour
         {
             yield return _waitDelay;
             
-            if (_lights.IndexOf(light) == _lights.Count -1)
+            if (_lights.IndexOf(light) == (_lights.Count-2))
             {
                 light.color = Color.yellow;
             }
-            else if(_lights.IndexOf(light) == _lights.Count)
+            else if(_lights.IndexOf(light) == _lights.Count-1)
             {
                 light.color = Color.green;
             }
@@ -46,8 +49,10 @@ public class StartSignal : MonoBehaviour
                 light.color = Color.red;
             }
         }
-        
+
+        yield return _hold;
         RaceStart?.Invoke();
+        gameObject.SetActive(false);
         yield return null;
     }
 }

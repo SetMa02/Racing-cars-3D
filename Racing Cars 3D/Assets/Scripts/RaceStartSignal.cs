@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DefaultNamespace.Bots;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -7,7 +8,8 @@ namespace DefaultNamespace
     public class RaceStartSignal : MonoBehaviour
     {
         private StartSignal _startSignal;
-        private GroundDetection[] _groundDetections = new GroundDetection[] {};
+        private BotMovement[] _groundDetections = new BotMovement[] {};
+        private PlayerInput _playerInput;
 
         private void OnEnable()
         {
@@ -22,7 +24,8 @@ namespace DefaultNamespace
         private void Awake()
         {
             _startSignal = FindObjectOfType<StartSignal>();
-            _groundDetections = FindObjectsOfType<GroundDetection>();
+            _groundDetections = FindObjectsOfType<BotMovement>();
+            _playerInput = FindObjectOfType<PlayerInput>();
 
             if (_startSignal == null)
             {
@@ -36,6 +39,9 @@ namespace DefaultNamespace
             {
                 _groundDetection.enabled = false;
             }
+
+            _playerInput.enabled = false;
+            _startSignal.StartCountDown();
         }
 
         private void StartSignalOnRaceStart()
@@ -44,6 +50,8 @@ namespace DefaultNamespace
             {
                 _groundDetection.enabled = true;
             }
+
+            _playerInput.enabled = true;
         }
     }
 }
