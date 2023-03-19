@@ -6,7 +6,7 @@ namespace DefaultNamespace.Player
 {
     public class DarkImage : MonoBehaviour
     {
-        public Image DarkScreen;
+        [HideInInspector]public Image DarkScreen;
 
         private void Awake()
         {

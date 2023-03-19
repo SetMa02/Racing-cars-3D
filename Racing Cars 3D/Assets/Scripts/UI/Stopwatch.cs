@@ -8,12 +8,11 @@ using UnityEngine;
 public class Stopwatch : MonoBehaviour
 {
     private TMP_Text _stopwatch;
-    private int _minutes = 0;
-    private int _seconds = 0;
+    private float _seconds = 0;
     private float _realSeconds = 0;
     private StartSignal _startSignal;
     private bool _isRaceStart = false;
-    private float _maxSeconds = 60;
+    private float _maxSeconds;
     private Finish _finish;
 
     private void OnEnable()
@@ -38,6 +37,7 @@ public class Stopwatch : MonoBehaviour
         _startSignal = FindObjectOfType<StartSignal>();
         _stopwatch = GetComponent<TMP_Text>();
         _finish = FindObjectOfType<Finish>();
+        _maxSeconds = 60f;
 
         if (_startSignal == null || _finish == null)
         {
@@ -49,16 +49,8 @@ public class Stopwatch : MonoBehaviour
     {
         if (_isRaceStart == true)
         {
-            _realSeconds += Time.deltaTime;
-            _seconds = (int)Math.Round(_realSeconds, 2);
-            
-            if (_seconds >= _maxSeconds)
-            {
-                _minutes++;
-                _seconds = 0;
-            }
-            
-            _stopwatch.text = $"{$"{_minutes:d}"}:{$"{_seconds:d}"}";
+            _seconds += Time.deltaTime;
+            _stopwatch.text = $"{$"{_seconds:F}"}";
         }
     }
 
